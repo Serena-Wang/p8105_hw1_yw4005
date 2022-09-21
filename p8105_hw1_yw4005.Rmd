@@ -1,12 +1,11 @@
 ---
 title: "p8105_hw1_yw4005"
 author: "Yijin Serena Wang"
-date: "2022-09-17"
-output: html_document
+date: "2022-09-20"
+output: github_document
 ---
 
-```{r setup, include=TRUE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, echo = FALSE, message = FALSE}
 library(palmerpenguins)
 library(tidyverse)
 library(ggplot2)
@@ -28,7 +27,12 @@ scattorplot <- ggplot(data = penguins,
   geom_point()
 scattorplot
 ```
-add save function
+
+```{r eval=FALSE}
+# Save as a pdf
+ggsave(plot=scattorplot, filename = "p1_scatterplot.pdf")
+```
+
 ## Problem 2
 ```{r}
 # Create a data frame with 4 specified columns. 
@@ -40,7 +44,7 @@ p2_df <- tibble(
 )
 ```
 
-I tried to take the mean of each variable in this data frame. The `mean()` function works with numeric vector for random sample and logical vector. It does not work with character vectors and factor vectors. However, the mean of logical vector does not make much sense in terms of True/False. 
+I tried to take the mean of each variable in this data frame. The `mean()` function works with numeric vector for random sample and logical vector. It does not work with character vectors and factor vectors. It returns `NA` and a warning message. However, the mean of logical vector does not make much sense in terms of True/False. 
 
 ```{r, eval=FALSE}
 as.numeric(p2_df$greater_than_zero)
