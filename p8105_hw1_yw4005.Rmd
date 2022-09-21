@@ -5,7 +5,7 @@ date: "2022-09-20"
 output: github_document
 ---
 
-```{r, echo = FALSE, message = FALSE}
+```{r, message = FALSE}
 library(palmerpenguins)
 library(tidyverse)
 library(ggplot2)
