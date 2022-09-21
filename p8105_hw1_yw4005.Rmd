@@ -1,0 +1,56 @@
+---
+title: "p8105_hw1_yw4005"
+author: "Yijin Serena Wang"
+date: "2022-09-17"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+library(palmerpenguins)
+library(tidyverse)
+library(ggplot2)
+```
+
+## Problem 1
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+The `penguins` dataset contains information about observed penguins sepecies. These information includes bill length, bill depth, flipper length, body mass, sex and observation year and observed island. This dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm=TRUE)` mm.
+
+```{r scattorplot}
+# Create a scatter plot of bill length and filpper length. The dots are colored by species
+scattorplot <- ggplot(data = penguins, 
+                      aes(x = bill_length_mm, 
+                          y = flipper_length_mm, 
+                          color = species)) +
+  geom_point()
+scattorplot
+```
+add save function
+## Problem 2
+```{r}
+# Create a data frame with 4 specified columns. 
+p2_df <- tibble(
+  sample = rnorm(10),
+  greater_than_zero = sample > 0,
+  char_var= c(rep("a", 3), rep("b", 3), rep("c", 4)),
+  factor_var= factor(char_var, levels = c("a", "b", "c"))
+)
+```
+
+I tried to take the mean of each variable in this data frame. The `mean()` function works with numeric vector for random sample and logical vector. It does not work with character vectors and factor vectors. However, the mean of logical vector does not make much sense in terms of True/False. 
+
+```{r, eval=FALSE}
+as.numeric(p2_df$greater_than_zero)
+```
+This is converted to 1 or 0. 
+```{r, eval=FALSE}
+as.numeric(p2_df$char_var)
+```
+This becomes a vector of NAs and it also returned a warning message "NAs introduced by coercion." Mean of NAs is still NAs.
+```{r, eval=FALSE}
+as.numeric(p2_df$factor_var)
+```
+This is a vector of 1s,2s,3s, corresponding to each level. These are discrete numeric value. The mean of these data does not make sense in terms of factors. 
